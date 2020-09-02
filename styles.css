@@ -1,8 +1,21 @@
-body{
-    background-color: skyblue;
+/*
+ * Copyright (c) 2012 Thibaut Courouble
+ * http://www.cssflow.com
+ * Licensed under the MIT License
+ *
+ * Sass/SCSS source: https://goo.gl/0jzXf
+ * PSD by Orman Clark: https://goo.gl/D8zmk
+ */
+
+ body {
+    font: 13px/20px "Lucida Grande", Tahoma, Verdana, sans-serif;
+    color: #404040;
+    background: #0ca3d2;
+  }
+  h1 {
+    text-align:center;
 }
 
-h1{
-    
+input{
+    display: inline-block;
 }
-

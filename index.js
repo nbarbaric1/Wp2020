@@ -13,7 +13,7 @@
 
   const auth=firebase.auth();
 
-
+/* 
   function signUp(){
 
         var email= document.getElementById("email");
@@ -26,17 +26,17 @@
 
 
 
-  }
+  } */
 
   function signIn(){
-
+  console.log("signin metoda");
     var email= document.getElementById("email");
     var password= document.getElementById("password");
 
     auth.signInWithEmailAndPassword(email.value, password.value).then( function a(){
       //then
       alert("logged in");
-      window.location.href = "homepage.html";
+      window.location.href = "homepage.html"; 
     }).catch(error=>alert(error.message));
 
 

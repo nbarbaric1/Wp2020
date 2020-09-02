@@ -27,5 +27,8 @@ var element = document.getElementById("text");
           
       } else {
           // User is signed out.
+          console.log("izvrsih se");
+          element.innerHTML = "odjavljeno";
+          window.location.replace("index.html");
       }
   });
