@@ -26,7 +26,10 @@
 
 
 
-  } */
+  } 
+*/
+
+  
 
   function signIn(){
   console.log("signin metoda");
@@ -41,14 +44,15 @@
 
 
 
-    
 
     
+  }
+    
 
 
 
 
-}
+
 
 function signOut(){
   auth.signOut();
@@ -62,3 +66,9 @@ auth.onAuthStateChanged(function (user) {
         // User is signed out.
     }
 });
+
+function forgotPassword(){
+  console.log("Trazim");
+  var email= document.getElementById("email");
+  console.log(auth.fetchSignInMethodsForEmail(email));
+}

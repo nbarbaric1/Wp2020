@@ -8,14 +8,8 @@
  */
 
  body {
-    font: 13px/20px "Lucida Grande", Tahoma, Verdana, sans-serif;
-    color: #404040;
-    background: #0ca3d2;
+    background: rgb(15,12,41);
+    background: linear-gradient(90deg, rgba(15,12,41,1) 0%, rgba(48,43,99,1) 50%, rgba(36,36,62,1) 100%);
+    
   }
-  h1 {
-    text-align:center;
-}
 
-input{
-    display: inline-block;
-}
