@@ -12,18 +12,40 @@ var firebaseConfig = {
   firebase.initializeApp(firebaseConfig);
 
   const auth=firebase.auth();
+  const db=firebase.database();
 
 
-  function signUp(email,password){
 
 
-        auth.createUserWithEmailAndPassword(email, password).then(function d(){alert("registritrano");}).catch(e=> alert(e.message));
+  function signUp(email,password,desc,username){
+
+
+        auth.createUserWithEmailAndPassword(email, password).then(function d(){
+                                                                    alert("registritrano");
+                                                                    
+                                                                    db.ref('/users/'+username).set(
+                                                                        {
+                                                                            opis: desc
+                                                                        }
+                                                                    )
+                                                                
+                                                                
+                                                                
+                                                                })
+        
+        
+        .catch(e=> alert(e.message));
+
+
+
         
 
 
 
 
   } 
+
+ 
 
 
 function register(){
@@ -39,9 +61,9 @@ function register(){
  */ 
     if((email=="" || username=="" || password=="" || repassword=="" || desc=="")){alert("Please enter all data.");return;}
     if(password.localeCompare(repassword)){alert("Passwords are not same");return;}
-    if(desc.length<20){alert("Please write minimum 20 characters about yourself.");return;}
+    if(desc.length<2){alert("Please write minimum 20 characters about yourself.");return;}
 
-    signUp(email,password);
+    signUp(email,password,desc,username);
     
 
 
