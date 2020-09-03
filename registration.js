@@ -23,9 +23,11 @@ var firebaseConfig = {
         auth.createUserWithEmailAndPassword(email, password).then(function d(){
                                                                     alert("registritrano");
                                                                     
-                                                                    db.ref('/users/'+username).set(
+                                                                    db.ref('/users/'+auth.currentUser.uid).set(
                                                                         {
-                                                                            opis: desc
+                                                                            email: email,
+                                                                            username: username,
+                                                                            description: desc
                                                                         }
                                                                     )
                                                                 
