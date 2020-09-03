@@ -33,12 +33,12 @@
 
   function signIn(){
   console.log("signin metoda");
-    var email= document.getElementById("email");
-    var password= document.getElementById("password");
+    var email= document.getElementById("email").value;
+    var password= document.getElementById("password").value;
 
-    auth.signInWithEmailAndPassword(email.value, password.value).then( function a(){
+    auth.signInWithEmailAndPassword(email, password).then( function a(){
       //then
-      alert("logged in");
+      
       window.location.href = "homepage.html"; 
     }).catch(error=>alert(error.message));
 
@@ -69,6 +69,11 @@ auth.onAuthStateChanged(function (user) {
 
 function forgotPassword(){
   console.log("Trazim");
-  var email= document.getElementById("email");
-  console.log(auth.fetchSignInMethodsForEmail(email));
+  var email= document.getElementById("email").value;
+
+  
+  auth.sendPasswordResetEmail(email).then( function a(){
+    //then
+    alert("A password reset link was sent.");
+  }).catch(error=>alert(error.message));
 }
