@@ -17,17 +17,15 @@ var firebaseConfig = {
 
 
 
-  function signUp(email,password,desc,username){
+  function signUp(person, pass){
 
 
-        auth.createUserWithEmailAndPassword(email, password).then(function d(){
+        auth.createUserWithEmailAndPassword(person.email, pass).then(function d(){
                                                                     alert("registritrano");
                                                                     
                                                                     db.ref('/users/'+auth.currentUser.uid).set(
                                                                         {
-                                                                            email: email,
-                                                                            username: username,
-                                                                            description: desc
+                                                                            person: person
                                                                         }
                                                                     )
                                                                 
@@ -52,20 +50,33 @@ var firebaseConfig = {
 
 function register(){
     
-    var email= document.getElementById("email").value;
-    var username= document.getElementById("username").value;
-    var password= document.getElementById("password").value;
-    var repassword= document.getElementById("repassword").value;
-    var desc= document.getElementById("desc").value;
+    var mnameSurname= document.getElementById("nameSurname").value;
+    var mcapitalCatch=document.getElementById("capitalCatch").value;
+    var mfavouriteFish= document.getElementById("favouriteFish").value;
+    var memail= document.getElementById("email").value;
+    var musername= document.getElementById("username").value;
+    var mpassword= document.getElementById("password").value;
+    var mrepassword= document.getElementById("repassword").value;
+    var mdesc= document.getElementById("desc").value;
 
-   /*  if(!validateEmail(email)){alert("Please enter a valid email.");}
-    if(!validateUsername(username)){alert("Username must have a length between 3-20 characters and can contain only letters (a-z) and numbers")}
+   /*  if(!validateEmail(memail)){alert("Please enter a valid email.");}
+    if(!validateUsername(musername)){alert("Username must have a length between 3-20 characters and can contain only letters (a-z) and numbers")}
  */ 
-    if((email=="" || username=="" || password=="" || repassword=="" || desc=="")){alert("Please enter all data.");return;}
-    if(password.localeCompare(repassword)){alert("Passwords are not same");return;}
-    if(desc.length<2){alert("Please write minimum 20 characters about yourself.");return;}
+    if((memail=="" || musername=="" || mpassword=="" || mrepassword=="" || mdesc=="" || mnameSurname=="" || mcapitalCatch=="" || mfavouriteFish=="")){alert("Please enter all data.");return;}
+    if(mpassword.localeCompare(mrepassword)){alert("Passwords are not same");return;}
+    if(mdesc.length<2){alert("Please write minimum 20 characters about yourself.");return;}
 
-    signUp(email,password,desc,username);
+    var person = {
+        nameSurname: mnameSurname,
+        email: memail,
+        username: musername,
+        desc: mdesc,
+        capitalCatch: mcapitalCatch,
+        favouriteFish: mfavouriteFish,
+        
+      };
+
+    signUp(person,mpassword);
     
 
 
