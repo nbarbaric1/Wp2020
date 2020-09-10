@@ -13,6 +13,8 @@ var firebaseConfig = {
 
   const auth=firebase.auth();
   const db=firebase.database();
+  const storageRef = firebase.storage().ref();
+
 
 
 
@@ -22,12 +24,17 @@ var firebaseConfig = {
 
         auth.createUserWithEmailAndPassword(person.email, pass).then(function d(){
                                                                     alert("registritrano");
+                                                                    var image= document.getElementById("img").files[0];
+                                                                    var name= auth.currentUser.uid;
+                                                                    storageRef.child("profilePhotos/"+name).put(image);
                                                                     
                                                                     db.ref('/users/'+auth.currentUser.uid).set(
                                                                         {
                                                                             person: person
                                                                         }
                                                                     )
+
+                                                                    
                                                                 
                                                                 
                                                                 
@@ -58,6 +65,7 @@ function register(){
     var mpassword= document.getElementById("password").value;
     var mrepassword= document.getElementById("repassword").value;
     var mdesc= document.getElementById("desc").value;
+    var image= document.getElementById("img");
 
    /*  if(!validateEmail(memail)){alert("Please enter a valid email.");}
     if(!validateUsername(musername)){alert("Username must have a length between 3-20 characters and can contain only letters (a-z) and numbers")}
@@ -65,6 +73,8 @@ function register(){
     if((memail=="" || musername=="" || mpassword=="" || mrepassword=="" || mdesc=="" || mnameSurname=="" || mcapitalCatch=="" || mfavouriteFish=="")){alert("Please enter all data.");return;}
     if(mpassword.localeCompare(mrepassword)){alert("Passwords are not same");return;}
     if(mdesc.length<2){alert("Please write minimum 20 characters about yourself.");return;}
+    if(image.files.length===0 || !image.files[0].name.match(/.(jpg|jpeg|png|gif)$/i)){alert("Please upload profile photo."); return;}
+   
 
     var person = {
         nameSurname: mnameSurname,
