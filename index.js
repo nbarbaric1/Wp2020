@@ -13,33 +13,21 @@
 
   const auth=firebase.auth();
 
-/* 
-  function signUp(){
+  var currentUser = auth.currentUser;
+  console.log("trenutni index"+currentUser);
 
-        var email= document.getElementById("email");
-        var password= document.getElementById("password");
-
-        const promise= auth.createUserWithEmailAndPassword(email.value, password.value);
-        promise.catch(e=> alert(e.message));
-        alert("Signed Up");
-
-
-
-
-  } 
-*/
 
   
 
   function signIn(){
-  console.log("signin metoda");
+  
     var email= document.getElementById("email").value;
     var password= document.getElementById("password").value;
 
     auth.signInWithEmailAndPassword(email, password).then( function a(){
       //then
-      
-      window.location.href = "homepage.html"; 
+      console.log("signin metoda");
+      window.location.href = "home.html"; 
     }).catch(error=>alert(error.message));
 
 

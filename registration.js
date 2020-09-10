@@ -25,14 +25,22 @@ var firebaseConfig = {
         auth.createUserWithEmailAndPassword(person.email, pass).then(function d(){
                                                                     alert("registritrano");
                                                                     var image= document.getElementById("img").files[0];
-                                                                    var name= auth.currentUser.uid;
-                                                                    storageRef.child("profilePhotos/"+name).put(image);
+                                                                    var uid= auth.currentUser.uid;
+                                                                    storageRef.child("profilePhotos/"+uid).put(image);
                                                                     
-                                                                    db.ref('/users/'+auth.currentUser.uid).set(
+                                                                    db.ref('/users/'+uid).set(
                                                                         {
                                                                             person: person
                                                                         }
                                                                     )
+
+                                                                    window.location.replace("index.html");
+
+                                                                   /*  auth.signInWithEmailAndPassword(person.email, pass).then( function a(){
+                                                                        //then
+                                                                        console.log("izvrsah");
+                                                                        window.location.href = "home.html"; 
+                                                                      }).catch(error=>alert(error.message)); */
 
                                                                     
                                                                 
