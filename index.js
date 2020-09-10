@@ -49,7 +49,7 @@ function signOut(){
 auth.onAuthStateChanged(function (user) {
     if (user) {
         // User is signed in.
-        
+        window.location.replace("home.html");
     } else {
         // User is signed out.
     }

@@ -47,7 +47,7 @@
                         
                     <div class="col-md-2" style="background-color:lavenderblush;"><h3 style="text-align: center;">Favourite fish</h3></div>
 
-                    <div class="col-md-2  text-right" style="background-color:lavenderblush;"><h3 class="btn btn-link stretched-link" onclick="myProfile()">My profile</h3></div>
+                    <div class="col-md-2  text-right" style="background-color:lavenderblush;"><h3 class="btn btn-link stretched-link" onclick="homePage()">HOME PAGE</h3></div>
                         
                 </div>
 
@@ -67,11 +67,55 @@
                        
                 </div>
 
+
                 
 
+                <!-- upload -->
+<br>
 
-                <!-- slike -->
                 <div class="row justify-content-center">
+
+                    <div class="col-md-4" style="background-color:lavenderblush;"><input type="file"  class="form-control-file" id="img" name="img" accept="image/*"></div>
+               
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-md-4" style="background-color:lavenderblush;"><input type="text" class="form-control" placeholder="Image description" id="imgDesc"></textarea></div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-md-1" style="background-color:lavenderblush;">
+                        
+                            <div class="radio">
+                                <label><input type="radio" name="optradio" id="radio1">Private</label>
+                              </div>
+                              
+                        
+                    </div>
+
+                    <div class="col-md-1" style="background-color:lavenderblush;">
+                        
+                            <div class="radio">
+                                <label><input type="radio" name="optradio" id="radio2" checked>Public</label>
+                              </div>
+                              
+                        
+                    </div>
+
+                    <div class="col-md-2 text-right" style="background-color:lavenderblush;">
+                        
+                            <button type="button" class="btn btn-primary" onclick="uploadPost()">Upload</button>
+                            
+                        
+                    </div>
+
+
+
+                </div>
+
+
+            <!-- slike -->
+               <!--  <div class="row justify-content-center">
                     <div class="col-md-3 border" style="background-color:lavenderblush;">
                         
                         <img src="logo.png" class="img-fluid" alt="Responsive image">
@@ -140,7 +184,7 @@
 
 
                         
-                </div>
+                </div> -->
 
 
 
@@ -160,7 +204,7 @@
 
 
 
-            <script src="home.js"></script>
+            <script src="myprofile.js"></script>
             
     
 
