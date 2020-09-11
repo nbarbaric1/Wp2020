@@ -102,22 +102,30 @@ var firebaseConfig = {
 
 
 
-        storageRef.child("posts/"+postName).put(image).then(function d(){
+        storageRef.child("posts/"+postName+".jpeg").put(image).then(function d(){
+
+          storageRef.child("posts/"+postName+".jpeg").getDownloadURL().then(function(url) {
+            
+              console.log("ajde: "+url);
+
+              db.ref('/posts/'+uid+'/'+postName).set(
+                {
+                    description: imgDesc.value,
+                    link: url,
+                    privacy: privacy
+                }
+            )
+            .then(function g(){
+               alert("Uploaded successfully");
+            }).catch(e=>alert(e.message));
+
+          }).catch(e=>alert(e.message));
 
         
        
 
 
-          db.ref('/posts/'+uid+'/'+postName).set(
-            {
-                description: imgDesc.value,
-                link: "logo",
-                privacy: privacy
-            }
-        )
-        .then(function g(){
-           alert("Uploaded successfully");
-        }).catch(e=>alert(e.message));
+          
       }).catch(e=>alert(e.message));
       }
 
