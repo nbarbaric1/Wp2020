@@ -39,6 +39,8 @@ var firebaseConfig = {
                 des.innerHTML=snapshot.val().person.desc;
               });
 
+              loadPosts();
+
 
               
 
@@ -98,15 +100,16 @@ var firebaseConfig = {
         var image= document.getElementById("img").files[0];
         
         var postName= uid+"_" + Date.parse( new Date());
-        var link;
+        var ext=image.name.split('.').pop();
+        
 
 
 
-        storageRef.child("posts/"+postName+".jpeg").put(image).then(function d(){
+        storageRef.child("posts/"+postName+"."+ext).put(image).then(function d(){
 
-          storageRef.child("posts/"+postName+".jpeg").getDownloadURL().then(function(url) {
+          storageRef.child("posts/"+postName+"."+ext).getDownloadURL().then(function(url) {
             
-              console.log("ajde: "+url);
+              
 
               db.ref('/posts/'+uid+'/'+postName).set(
                 {
@@ -129,6 +132,44 @@ var firebaseConfig = {
       }).catch(e=>alert(e.message));
       }
 
+      
+
+      function loadPosts(){
+
+        var ref = firebase.database().ref("posts/"+auth.currentUser.uid);
+        ref.once("value")
+           .then(function(snapshot) {
+             var noOfPosts=4;
+              noOfPosts = snapshot.numChildren(); 
+              var digi=snapshot.val();
+                  console.log("Broj postova:"+digi[0].description);
+
+                  // 1 ("name")
+                   /* var b = snapshot.child("name").numChildren(); // 2 ("first", "last")
+                   var c = snapshot.child("name/first").numChildren(); */ // 0
+  });
+
+var i=0;
+        for(i=0;i<10;i++){
+
+
+        var row = document.createElement("div");                 // Create a <p> element
+        row.setAttribute("id", "row"+i);  
+        row.setAttribute("class", "row justify-content-center");
+        document.getElementById("container").appendChild(row);
+
+
+        var col = document.createElement("div");                 // Create a <p> element
+        col.setAttribute("id", "col"+i);  
+        col.setAttribute("class", "col-md-5 border");
+        row.appendChild(col);
+
+        var image = document.createElement("img");
+        image.setAttribute("src", "bg.jpg");
+        image.setAttribute("class","img-fluid");
+        col.appendChild(image);
+      }
+      }
 
         
 
