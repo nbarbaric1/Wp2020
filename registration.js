@@ -26,23 +26,32 @@ var firebaseConfig = {
                                                                     alert("registritrano");
                                                                     var image= document.getElementById("img").files[0];
                                                                     var uid= auth.currentUser.uid;
-                                                                    storageRef.child("profilePhotos/"+uid).put(image);
+
+                                                                    storageRef.child("profilePhotos/"+auth.currentUser.uid).put(image).then(function e(){
+
+                                                                        
+                                                            
+                                                                        db.ref('/users/'+uid).set(
+                                                                            {
+                                                                                person: person
+                                                                            }
+                                                                        )
+                                                                        .then(function g(){
+                                                                           window.location.replace("index.html");
+                                                                        })
+
+
+
+                                                                    })
                                                                     
-                                                                    db.ref('/users/'+uid).set(
-                                                                        {
-                                                                            person: person
-                                                                        }
-                                                                    )
-
-                                                                    window.location.replace("index.html");
-
-                                                                   /*  auth.signInWithEmailAndPassword(person.email, pass).then( function a(){
-                                                                        //then
-                                                                        console.log("izvrsah");
-                                                                        window.location.href = "home.html"; 
-                                                                      }).catch(error=>alert(error.message)); */
-
                                                                     
+                                                                    .catch(error=>alert(error));
+                                                                    
+                                                                    
+
+                                                                    //
+
+                                                                   
                                                                 
                                                                 
                                                                 
@@ -60,6 +69,8 @@ var firebaseConfig = {
 
   } 
 
+
+
  
 
 
@@ -74,6 +85,9 @@ function register(){
     var mrepassword= document.getElementById("repassword").value;
     var mdesc= document.getElementById("desc").value;
     var image= document.getElementById("img");
+
+    
+    console.log();
 
    /*  if(!validateEmail(memail)){alert("Please enter a valid email.");}
     if(!validateUsername(musername)){alert("Username must have a length between 3-20 characters and can contain only letters (a-z) and numbers")}
@@ -91,6 +105,7 @@ function register(){
         desc: mdesc,
         capitalCatch: mcapitalCatch,
         favouriteFish: mfavouriteFish,
+        photoUrl: "profilePhotos/"+image.files[0].name
         
       };
 

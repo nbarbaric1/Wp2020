@@ -83,6 +83,7 @@ var firebaseConfig = {
         var imgDesc=document.getElementById("imgDesc");
         var radio1=document.getElementById("radio1");
         var radio2=document.getElementById("radio2");
+        var privacy;
 
 
 
@@ -90,8 +91,17 @@ var firebaseConfig = {
 
         if(image.files.length===0 || !image.files[0].name.match(/.(jpg|jpeg|png|gif)$/i)){alert("Please upload profile photo."); return;}
         if(imgDesc.value==0){alert("Please write description."); return;}
-        if(radio1.checked){console.log("prvi");}
-        if(radio2.checked){console.log("2");}
+        if(radio1.checked){privacy=1;}
+        if(radio2.checked){privacy=0;}
+        
+
+        var image= document.getElementById("img").files[0];
+        var uid= auth.currentUser.uid;
+        
+        storageRef.child("posts/"+uid).put(image);
+
+
+
 
 
 
