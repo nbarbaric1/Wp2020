@@ -87,25 +87,49 @@ var firebaseConfig = {
 
 
 
-
+        var uid= auth.currentUser.uid;
 
         if(image.files.length===0 || !image.files[0].name.match(/.(jpg|jpeg|png|gif)$/i)){alert("Please upload profile photo."); return;}
         if(imgDesc.value==0){alert("Please write description."); return;}
-        if(radio1.checked){privacy=1;}
+        if(radio1.checked){privacy=uid;}
         if(radio2.checked){privacy=0;}
         
 
         var image= document.getElementById("img").files[0];
-        var uid= auth.currentUser.uid;
         
-        storageRef.child("posts/"+uid).put(image);
+        var postName= uid+"_" + Date.parse( new Date());
+        var link;
 
 
 
+        storageRef.child("posts/"+postName).put(image).then(function d(){
+
+        
+       
 
 
-
+          db.ref('/posts/'+uid+'/'+postName).set(
+            {
+                description: imgDesc.value,
+                link: "logo",
+                privacy: privacy
+            }
+        )
+        .then(function g(){
+           alert("Uploaded successfully");
+        }).catch(e=>alert(e.message));
+      }).catch(e=>alert(e.message));
       }
+
+
+        
+
+
+
+
+
+
+      
 
     
   
