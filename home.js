@@ -77,6 +77,32 @@ var firebaseConfig = {
       }
 
 
+      function listBtn(){
+        document.getElementById('divPost1').setAttribute('class', 'col-md-7 border');
+        document.getElementById('divPost2').setAttribute('class', 'col-md-7 border');
+        document.getElementById('divPost3').setAttribute('class', 'col-md-7 border');
+        document.getElementById('divPost4').setAttribute('class', 'col-md-7 border');
+        document.getElementById('divPost5').setAttribute('class', 'col-md-7 border');
+        document.getElementById('divPost6').setAttribute('class', 'col-md-7 border');
+        document.getElementById('divPost7').setAttribute('class', 'col-md-7 border');
+        document.getElementById('divPost8').setAttribute('class', 'col-md-7 border');
+        document.getElementById('divPost9').setAttribute('class', 'col-md-7 border');
+      }
+
+      function gridBtn(){
+        document.getElementById('divPost1').setAttribute('class', 'col-md-3 border');
+        document.getElementById('divPost2').setAttribute('class', 'col-md-3 border');
+        document.getElementById('divPost3').setAttribute('class', 'col-md-3 border');
+        document.getElementById('divPost4').setAttribute('class', 'col-md-3 border');
+        document.getElementById('divPost5').setAttribute('class', 'col-md-3 border');
+        document.getElementById('divPost6').setAttribute('class', 'col-md-3 border');
+        document.getElementById('divPost7').setAttribute('class', 'col-md-3 border');
+        document.getElementById('divPost8').setAttribute('class', 'col-md-3 border');
+        document.getElementById('divPost9').setAttribute('class', 'col-md-3 border');
+      }
+
+
+
     
   
 

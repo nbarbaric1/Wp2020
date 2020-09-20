@@ -137,40 +137,69 @@ var firebaseConfig = {
       function loadPosts(){
 
         var ref = firebase.database().ref("posts/"+auth.currentUser.uid);
-        ref.once("value")
-           .then(function(snapshot) {
-             var noOfPosts=4;
-              noOfPosts = snapshot.numChildren(); 
-              var digi=snapshot.val();
-                  console.log("Broj postova:"+digi[0].description);
 
-                  // 1 ("name")
-                   /* var b = snapshot.child("name").numChildren(); // 2 ("first", "last")
-                   var c = snapshot.child("name/first").numChildren(); */ // 0
-  });
+        var br=0;
+        ref.once('value', function(snapshot) {
+          snapshot.forEach(function(childSnapshot) {
+            br++;
+            
+            var childData = childSnapshot.val();
+            console.log("this is;"+childData.link);
 
-var i=0;
-        for(i=0;i<10;i++){
+            var imagea= document.getElementById("img"+br);
+        imagea.setAttribute("src",childData.link);
 
+         
 
-        var row = document.createElement("div");                 // Create a <p> element
-        row.setAttribute("id", "row"+i);  
-        row.setAttribute("class", "row justify-content-center");
-        document.getElementById("container").appendChild(row);
+            // ...
+          });
+        });
 
-
-        var col = document.createElement("div");                 // Create a <p> element
-        col.setAttribute("id", "col"+i);  
-        col.setAttribute("class", "col-md-5 border");
-        row.appendChild(col);
-
-        var image = document.createElement("img");
-        image.setAttribute("src", "bg.jpg");
-        image.setAttribute("class","img-fluid");
-        col.appendChild(image);
-      }
+       
+        
       }
 
+
+      function loaPosts(){
+
+
+
+
+      }
+
+
+      function listBtn(){
+        document.getElementById('divPost1').setAttribute('class', 'col-md-7 border');
+        document.getElementById('divPost2').setAttribute('class', 'col-md-7 border');
+        document.getElementById('divPost3').setAttribute('class', 'col-md-7 border');
+        document.getElementById('divPost4').setAttribute('class', 'col-md-7 border');
+        document.getElementById('divPost5').setAttribute('class', 'col-md-7 border');
+        document.getElementById('divPost6').setAttribute('class', 'col-md-7 border');
+        document.getElementById('divPost7').setAttribute('class', 'col-md-7 border');
+        document.getElementById('divPost8').setAttribute('class', 'col-md-7 border');
+        document.getElementById('divPost9').setAttribute('class', 'col-md-7 border');
+      }
+
+      function gridBtn(){
+        document.getElementById('divPost1').setAttribute('class', 'col-md-3 border');
+        document.getElementById('divPost2').setAttribute('class', 'col-md-3 border');
+        document.getElementById('divPost3').setAttribute('class', 'col-md-3 border');
+        document.getElementById('divPost4').setAttribute('class', 'col-md-3 border');
+        document.getElementById('divPost5').setAttribute('class', 'col-md-3 border');
+        document.getElementById('divPost6').setAttribute('class', 'col-md-3 border');
+        document.getElementById('divPost7').setAttribute('class', 'col-md-3 border');
+        document.getElementById('divPost8').setAttribute('class', 'col-md-3 border');
+        document.getElementById('divPost9').setAttribute('class', 'col-md-3 border');
+      }
+
+
+      function modalImg(from) {
+        console.log("modal");
+        var caption  = document.getElementById(from).alt;
+        var src      = document.getElementById(from).src;
+        document.getElementById("img10").src = src;
+        document.getElementById("cap10").innerHTML = caption;
+      }
         
 
 
