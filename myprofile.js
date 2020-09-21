@@ -160,6 +160,7 @@ var firebaseConfig = {
             )
             .then(function g(){
                alert("Uploaded successfully");
+               window.location.href="home.html";
             }).catch(e=>alert(e.message));
 
           }).catch(e=>alert(e.message));
@@ -320,20 +321,18 @@ var firebaseConfig = {
       function deleteImage(from){
 
         var src = document.getElementById(from).src;
-        console.log(src);
+        console.log("ovo je:" +src);
 
-        var ref = firebase.database().ref("posts/");
+        var ref = firebase.database().ref("posts/"+firebase.auth().currentUser.uid);
 
         ref.once('value', function(snapshot) {
           snapshot.forEach(function(childSnapshot) {
 
             childSnapshot.forEach(function(childData){
-                  
-              if(childData.val().link==src){
+              if(childSnapshot.val().link==src){
                 console.log("evo ga" +JSON.stringify(childSnapshot.key));
-                var wantedUser = childSnapshot.key;
-                sessionStorage.setItem("wantedUser", wantedUser);
-                window.location.href="myprofile.html";
+                ref.child(childSnapshot.key).remove().then(function d(){ window.location.href="myprofile.html"; }).catch(e=>alert(e.message));
+                
               }
               
 
@@ -353,6 +352,60 @@ var firebaseConfig = {
 
       }
 
+      function editImage(from){
+
+        var text = document.getElementById("desc"+from).innerHTML;
+        var div = document.getElementById("divPost"+from);
+        var btn= document.getElementById("editBtn"+from);
+        console.log("ovo je:" +text);
+        var x = document.createElement("INPUT");
+        x.setAttribute("type", "text");
+        div.appendChild(x);
+        x.setAttribute("value", text);
+        btn.disabled=true;
+        var btnSave = document.createElement("BUTTON");   // Create a <button> element
+        btnSave.innerHTML = "Save";                   // Insert text
+        div.appendChild(btnSave);
+        btnSave.addEventListener("click", myScript(from));
+        
+        btn.disabled=false;
+
+
+
+
+      }
+
+      function myScript(from){
+
+        
+        console.log("AUSTRIJA");
+        var src = document.getElementById("img"+from).src;
+        var ref = firebase.database().ref("posts/"+firebase.auth().currentUser.uid);
+
+        ref.once('value', function(snapshot) {
+          snapshot.forEach(function(childSnapshot) {
+
+            childSnapshot.forEach(function(childData){
+              if(childSnapshot.val().link==src){
+                console.log("evo ga" +JSON.stringify(childSnapshot.key));
+                //ref.child(childSnapshot.key).remove().then(function d(){ window.location.href="myprofile.html"; }).catch(e=>alert(e.message));
+                
+              }
+              
+
+
+          
+
+             
+
+              })
+
+
+        
+      
+          });
+        })
+      }
 
 
 

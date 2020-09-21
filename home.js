@@ -147,6 +147,7 @@ var firebaseConfig = {
           if(publicPostsNo<=9){
             for(cc=0;cc<publicPostsNo;cc++){
               var imagea= document.getElementById("img"+(cc+1));
+                   imagea.setAttribute("src",publicPosts[cc].link);
               var  desca= document.getElementById("desc"+(cc+1));
                    desca.innerHTML=publicPosts[cc].description;
             }
@@ -171,11 +172,6 @@ var firebaseConfig = {
             }
 
           }
-          /* console.log("javni: "+JSON.stringify(publicPosts));
-          console.log(publicPosts.length);
-          console.log(publicPosts[1].link);
-          console.log(Math.floor(Math.random() * publicPosts.length)  ); */
-
 
 
         });
