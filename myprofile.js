@@ -14,17 +14,31 @@ var firebaseConfig = {
   const auth=firebase.auth();
   const db=firebase.database();
   const storageRef = firebase.storage().ref();
+  var wantedUser = sessionStorage.getItem("wantedUser");
+  console.log("wanted:"+wantedUser);
+  var div1= document.getElementById("fileDiv");
+  var div2= document.getElementById("descDiv");
+  var div3= document.getElementById("privacyDiv");
+
+  
 
 
     auth.onAuthStateChanged(function (user) {
         if (user) {
             console.log("logiran "+user.uid);
 
+            
+
             var fullName= document.getElementById("fullName");
             var email= document.getElementById("email");
             var capitalCatch= document.getElementById("capitalCatch");
             var favFish= document.getElementById("favFish");
             var des=document.getElementById("description");
+
+
+      if(user.uid==wantedUser){
+
+            
 
             
 
@@ -39,8 +53,29 @@ var firebaseConfig = {
                 des.innerHTML=snapshot.val().person.desc;
               });
 
-              loadPosts();
+              loadMyPosts();
+      }
 
+      else{
+
+        div1.style.display = "none";
+        div2.style.display = "none";
+        div3.style.display = "none";
+
+        var persona;
+            db.ref('/users/' + wantedUser).once('value').then(function(snapshot) {
+                persona=snapshot.val().person;
+                console.log(persona);
+                fullName.innerHTML=snapshot.val().person.nameSurname;
+                email.innerHTML=snapshot.val().person.email;
+                capitalCatch.innerHTML=snapshot.val().person.capitalCatch;
+                favFish.innerHTML=snapshot.val().person.favouriteFish;
+                des.innerHTML=snapshot.val().person.desc;
+              });
+
+              loadTheirPosts();
+
+      }
 
               
 
@@ -134,7 +169,7 @@ var firebaseConfig = {
 
       
 
-      function loadPosts(){
+      function loadMyPosts(){
 
         var ref = firebase.database().ref("posts/"+auth.currentUser.uid);
 
@@ -148,6 +183,11 @@ var firebaseConfig = {
 
             var imagea= document.getElementById("img"+br);
         imagea.setAttribute("src",childData.link);
+
+        var  desca= document.getElementById("desc"+br);
+                   desca.innerHTML=childData.description;
+
+
 
          
 
@@ -190,6 +230,75 @@ var firebaseConfig = {
         console.log("modal");
         var src      = document.getElementById(from).src;
         document.getElementById("img10").src = src;
+      }
+
+
+
+
+
+      function loadTheirPosts(){
+
+        var ref = firebase.database().ref("posts/"+wantedUser);
+
+        var br=0;
+        var cc=0;
+        var publicPosts=[];
+        ref.once('value', function(snapshot) {
+          snapshot.forEach(function(childSnapshot) {
+            console.log("ovdje smo sad:" + childSnapshot.val().link);
+
+            if(childSnapshot.val().privacy==0){
+              publicPosts.push(childSnapshot.val());
+            }
+
+            
+
+
+        
+      
+          });
+        }).then(function d(){
+          publicPostsNo=publicPosts.length;
+          console.log("publicposts:"+JSON.stringify(publicPostsNo));
+          if(publicPostsNo<=9){
+            for(cc=0;cc<publicPostsNo;cc++){
+              var imagea= document.getElementById("img"+(cc+1));
+                  imagea.setAttribute("src",publicPosts[cc].link);
+              var  desca= document.getElementById("desc"+(cc+1));
+                   desca.innerHTML=publicPosts[cc].description;
+            }
+          }
+
+          else{
+
+            var arr = [];
+           while(arr.length < 9){
+                var r = getRandom(publicPostsNo);
+                if(arr.indexOf(r) === -1) arr.push(r);
+              }
+          console.log("ard "+arr);
+
+
+            for(cc=0; cc<9; cc++){
+              var imagea= document.getElementById("img"+(cc+1));
+                  imagea.setAttribute("src",publicPosts[arr[cc]].link);
+              var  desca= document.getElementById("desc"+(cc+1));
+                   desca.innerHTML=publicPosts[arr[cc]].description;
+
+            }
+
+          }
+          
+
+
+
+        });
+
+        
+        
+
+       
+        
       }
         
 

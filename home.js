@@ -59,36 +59,16 @@ var firebaseConfig = {
     });
 
     function myProfile(){
+      var wantedUser = firebase.auth().currentUser.uid;
+      console.log(wantedUser);
+      sessionStorage.setItem("wantedUser", wantedUser);
 
       window.location.href="myprofile.html";
     }
 
 
 
-    function loadPosts(){
-
-      var ref = firebase.database().ref("posts/"+auth.currentUser.uid);
-
-      var br=0;
-      ref.once('value', function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
-          br++;
-          
-          var childData = childSnapshot.val();
-          console.log("this is;"+childData.link);
-
-          var imagea= document.getElementById("img"+br);
-      imagea.setAttribute("src",childData.link);
-
-       
-
-          // ...
-        });
-      });
-
-     
-      
-    }
+    
 
 
 
@@ -167,7 +147,8 @@ var firebaseConfig = {
           if(publicPostsNo<=9){
             for(cc=0;cc<publicPostsNo;cc++){
               var imagea= document.getElementById("img"+(cc+1));
-                  imagea.setAttribute("src",publicPosts[cc].link);
+              var  desca= document.getElementById("desc"+(cc+1));
+                   desca.innerHTML=publicPosts[cc].description;
             }
           }
 
@@ -184,6 +165,8 @@ var firebaseConfig = {
             for(cc=0; cc<9; cc++){
               var imagea= document.getElementById("img"+(cc+1));
                   imagea.setAttribute("src",publicPosts[arr[cc]].link);
+              var  desca= document.getElementById("desc"+(cc+1));
+                   desca.innerHTML=publicPosts[arr[cc]].description;
 
             }
 
@@ -208,6 +191,44 @@ var firebaseConfig = {
         return Math.floor(Math.random() * a);
       }
         
+
+
+
+      function visitProfile(from){
+
+        var src = document.getElementById(from).src;
+        console.log(src);
+
+        var ref = firebase.database().ref("posts/");
+
+        ref.once('value', function(snapshot) {
+          snapshot.forEach(function(childSnapshot) {
+
+            childSnapshot.forEach(function(childData){
+                  
+              if(childData.val().link==src){
+                console.log("evo ga" +JSON.stringify(childSnapshot.key));
+                var wantedUser = childSnapshot.key;
+                sessionStorage.setItem("wantedUser", wantedUser);
+                window.location.href="myprofile.html";
+              }
+              
+
+
+          
+
+             
+
+              })
+
+
+        
+      
+          });
+        })
+
+
+      }
 
 
     
