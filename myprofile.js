@@ -160,13 +160,6 @@ var firebaseConfig = {
       }
 
 
-      function loaPosts(){
-
-
-
-
-      }
-
 
       function listBtn(){
         document.getElementById('divPost1').setAttribute('class', 'col-md-7 border');
@@ -195,10 +188,8 @@ var firebaseConfig = {
 
       function modalImg(from) {
         console.log("modal");
-        var caption  = document.getElementById(from).alt;
         var src      = document.getElementById(from).src;
         document.getElementById("img10").src = src;
-        document.getElementById("cap10").innerHTML = caption;
       }
         
 

@@ -40,6 +40,7 @@ var firebaseConfig = {
               });
 
 
+              loadPosts();
               
 
 
@@ -61,6 +62,38 @@ var firebaseConfig = {
 
       window.location.href="myprofile.html";
     }
+
+
+
+    function loadPosts(){
+
+      var ref = firebase.database().ref("posts/"+auth.currentUser.uid);
+
+      var br=0;
+      ref.once('value', function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+          br++;
+          
+          var childData = childSnapshot.val();
+          console.log("this is;"+childData.link);
+
+          var imagea= document.getElementById("img"+br);
+      imagea.setAttribute("src",childData.link);
+
+       
+
+          // ...
+        });
+      });
+
+     
+      
+    }
+
+
+
+
+
 
 
     function signOut(){
@@ -101,6 +134,80 @@ var firebaseConfig = {
         document.getElementById('divPost9').setAttribute('class', 'col-md-3 border');
       }
 
+
+      function loadPosts(){
+
+        var ref = firebase.database().ref("posts/");
+
+        var br=0;
+        var cc=0;
+        var publicPosts=[];
+        ref.once('value', function(snapshot) {
+          snapshot.forEach(function(childSnapshot) {
+
+            childSnapshot.forEach(function(childData){
+                  
+              if(childData.val().privacy==0){
+                publicPosts.push(childData.val());
+              }
+
+
+          
+
+             
+
+              })
+
+
+        
+      
+          });
+        }).then(function d(){
+          publicPostsNo=publicPosts.length;
+          if(publicPostsNo<=9){
+            for(cc=0;cc<publicPostsNo;cc++){
+              var imagea= document.getElementById("img"+(cc+1));
+                  imagea.setAttribute("src",publicPosts[cc].link);
+            }
+          }
+
+          else{
+
+            var arr = [];
+           while(arr.length < 9){
+                var r = getRandom(publicPostsNo);
+                if(arr.indexOf(r) === -1) arr.push(r);
+              }
+          console.log("ard "+arr);
+
+
+            for(cc=0; cc<9; cc++){
+              var imagea= document.getElementById("img"+(cc+1));
+                  imagea.setAttribute("src",publicPosts[arr[cc]].link);
+
+            }
+
+          }
+          /* console.log("javni: "+JSON.stringify(publicPosts));
+          console.log(publicPosts.length);
+          console.log(publicPosts[1].link);
+          console.log(Math.floor(Math.random() * publicPosts.length)  ); */
+
+
+
+        });
+
+        
+        
+
+       
+        
+      }
+
+      function getRandom(a){
+        return Math.floor(Math.random() * a);
+      }
+        
 
 
     
