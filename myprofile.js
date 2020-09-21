@@ -62,6 +62,11 @@ var firebaseConfig = {
         div2.style.display = "none";
         div3.style.display = "none";
 
+        for(var z=0; z<9;z++){
+          document.getElementById("deleteBtn"+(z+1)).style.display = "none";
+          document.getElementById("editBtn"+(z+1)).style.display = "none";
+        }
+
         var persona;
             db.ref('/users/' + wantedUser).once('value').then(function(snapshot) {
                 persona=snapshot.val().person;
@@ -128,7 +133,7 @@ var firebaseConfig = {
 
         if(image.files.length===0 || !image.files[0].name.match(/.(jpg|jpeg|png|gif)$/i)){alert("Please upload profile photo."); return;}
         if(imgDesc.value==0){alert("Please write description."); return;}
-        if(radio1.checked){privacy=uid;}
+        if(radio1.checked){privacy=1;}
         if(radio2.checked){privacy=0;}
         
 
@@ -193,6 +198,11 @@ var firebaseConfig = {
 
             // ...
           });
+        }).then(function d(){
+          for(var g=br; g<9;g++){
+            document.getElementById("deleteBtn"+(g+1)).style.display = "none";
+            document.getElementById("editBtn"+(g+1)).style.display = "none";
+         }
         });
 
        
@@ -232,6 +242,8 @@ var firebaseConfig = {
         document.getElementById("img10").src = src;
       }
 
+      
+
 
 
 
@@ -267,6 +279,10 @@ var firebaseConfig = {
               var  desca= document.getElementById("desc"+(cc+1));
                    desca.innerHTML=publicPosts[cc].description;
             }
+
+            
+
+
           }
 
           else{
@@ -301,7 +317,41 @@ var firebaseConfig = {
         
       }
         
+      function deleteImage(from){
 
+        var src = document.getElementById(from).src;
+        console.log(src);
+
+        var ref = firebase.database().ref("posts/");
+
+        ref.once('value', function(snapshot) {
+          snapshot.forEach(function(childSnapshot) {
+
+            childSnapshot.forEach(function(childData){
+                  
+              if(childData.val().link==src){
+                console.log("evo ga" +JSON.stringify(childSnapshot.key));
+                var wantedUser = childSnapshot.key;
+                sessionStorage.setItem("wantedUser", wantedUser);
+                window.location.href="myprofile.html";
+              }
+              
+
+
+          
+
+             
+
+              })
+
+
+        
+      
+          });
+        })
+
+
+      }
 
 
 
