@@ -27,8 +27,13 @@ var firebaseConfig = {
                                                                     var image= document.getElementById("img").files[0];
                                                                     var uid= auth.currentUser.uid;
 
-                                                                    storageRef.child("profilePhotos/"+auth.currentUser.uid).put(image).then(function e(){
+                                                                    
+                                                                    var ext=image.name.split('.').pop();
 
+                                                                    storageRef.child("profilePhotos/"+auth.currentUser.uid+'.'+ext).put(image).then(function e(){
+                                                                        storageRef.child("profilePhotos/"+auth.currentUser.uid+'.'+ext).getDownloadURL().then(function(url){
+                                                                            person.photoUrl=url;
+                                                                        }).then(function d(){
                                                                         
                                                             
                                                                         db.ref('/users/'+uid).set(
@@ -43,7 +48,7 @@ var firebaseConfig = {
 
 
                                                                     })
-                                                                    
+                                                                })
                                                                     
                                                                     .catch(error=>alert(error));
                                                                     

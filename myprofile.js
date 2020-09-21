@@ -34,6 +34,7 @@ var firebaseConfig = {
             var capitalCatch= document.getElementById("capitalCatch");
             var favFish= document.getElementById("favFish");
             var des=document.getElementById("description");
+            var profPic=document.getElementById("profPic");
 
 
       if(user.uid==wantedUser){
@@ -51,6 +52,7 @@ var firebaseConfig = {
                 capitalCatch.innerHTML=snapshot.val().person.capitalCatch;
                 favFish.innerHTML=snapshot.val().person.favouriteFish;
                 des.innerHTML=snapshot.val().person.desc;
+                profPic.setAttribute("src",snapshot.val().person.photoUrl);
               });
 
               loadMyPosts();
