@@ -378,7 +378,6 @@ var firebaseConfig = {
       function myScript(from,text){
 
         
-        console.log("AUSTRIJA");
         var src = document.getElementById("img"+from).src;
         var ref = firebase.database().ref("posts/"+firebase.auth().currentUser.uid);
 
@@ -388,8 +387,7 @@ var firebaseConfig = {
             childSnapshot.forEach(function(childData){
               if(childSnapshot.val().link==src){
                 console.log("evo ga" +JSON.stringify(childSnapshot.key));
-                ref.child(childSnapshot.key).update({'description': text});
-                //ref.child(childSnapshot.key).remove().then(function d(){ window.location.href="myprofile.html"; }).catch(e=>alert(e.message));
+                ref.child(childSnapshot.key).update({'description': text}).then(function d(){ window.location.href="myprofile.html"; }).catch(e=>alert(e.message));
                 
               }
               
